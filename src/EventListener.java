@@ -1,6 +1,7 @@
 import KeybordInput.KeyBordInput;
 import Triangulo.MovimentaTriangulo;
 import com.jogamp.newt.event.KeyEvent;
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
@@ -19,7 +20,8 @@ public class EventListener extends JFrame implements GLEventListener {
     @Override
     public void init(GLAutoDrawable drawable) {
          gl = drawable.getGL().getGL2();
-        gl.glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+        System.out.println("!!!!!!!!!!!!");
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         this.mv = new MovimentaTriangulo(drawable);
         this.key = new KeyBordInput();
         //mv.normal();
@@ -36,8 +38,8 @@ public class EventListener extends JFrame implements GLEventListener {
     @Override
     public void display(GLAutoDrawable drawable) {
 
-        mv.direita();
-
+        this.mv.normal();
+//        mv.direita();
 
         if(key.getKey(KeyEvent.VK_RIGHT)){
             mv.direita();
@@ -47,8 +49,14 @@ public class EventListener extends JFrame implements GLEventListener {
             mv.esquerda();
             System.out.println("Esquerda");
         }
-
-        gl.glEnd();
+        if(this.key.getKey(KeyEvent.VK_DOWN)){
+            mv.virado();
+            System.out.println("Baixo");
+        }
+        if(this.key.getKey(KeyEvent.VK_UP)){
+            mv.normal();
+            System.out.println("Cima");
+        }
     }
 
     @Override
